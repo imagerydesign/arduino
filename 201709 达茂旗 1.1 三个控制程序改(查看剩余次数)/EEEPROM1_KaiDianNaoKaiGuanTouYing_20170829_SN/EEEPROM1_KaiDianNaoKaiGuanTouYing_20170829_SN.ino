@@ -9,21 +9,11 @@
 //**********************************************/
 unsigned long T = 60000;          //开投影后冷却关机
 
-//int N=800;
-byte AYear,AMonth,ADate;
-//到期的时间
-byte DYear = 17,DMonth = 9,DDate = 3;
-
-#include <DS3231.h>
-#include <Wire.h>
-
+int N=25;
 #include <EEPROM.h>
 #include <Keyboard.h>
 #define computer 10          //开机
 #define projector 11         //投影
-
-DS3231 Clock;
-bool Century=false;
 
 //***********************************
 int Flag_pass = 0,pass;
@@ -42,14 +32,6 @@ void setup()
   // for ( int i = 0 ; i < 10; i++ )
   //  EEPROM.write(i, 0);
   //*****************************************************
-  
-  Wire.begin();
-  /**************首次设置到期时间*********************
-  Clock.setYear(DYear);
-  Clock.setMonth(DMonth);
-  Clock.setYear(DDate);
- 
-  //*****************************************************/
 }
 int Flag_projector = 0 , Flag_computer = 0;
 int nochar_count = 0;
@@ -142,27 +124,15 @@ void loop()
                         if(anjian == 0)
                         {
                             //4#jian 
-
-                            AYear = Clock.getYear();
-                            AMonth = Clock.getMonth(Century);
-                            ADate = Clock.getDate();
-                            Serial.print("AYear =  ");
-                            Serial.println(AYear);
-                            Serial.print("AMonth =  ");
-                            Serial.println(AMonth);
-                            Serial.print("ADate =  ");
-                            Serial.println(ADate);
-                            if (AYear < DYear || (AYear == DYear) && (AMonth < DMonth || (AMonth = DMonth && ADate <= DDate) ) )
-                              
-                           // if(pass == 1 || spaceTime < N)
+                            if(pass == 1 || spaceTime < N)
                             {
-                            //Keyboard.press(' ');		//向电脑发送向播放的指令
+                            Keyboard.press(' ');		//向电脑发送向播放的指令
                             delay(50);		
                             Keyboard.releaseAll();
                             
                             }
                             Serial.println("//4#jian ");
-                            /**********************************************************************************************
+                            //**********************************************************************************************
                             spaceTime = EEPROM.read(0);
                             pass = EEPROM.read(1);
                             if(pass == 0 && spaceTime < N)
@@ -172,7 +142,7 @@ void loop()
                                 EEPROM.write(0, spaceTime);
 
                             }
-                            //**********************************************************************************************/
+                            //**********************************************************************************************
                         }
                         break;
             case  63://串口第4个数字
@@ -181,18 +151,7 @@ void loop()
                         if(anjian == 0)
                         {
                             //5#jian 
-                             AYear = Clock.getYear();
-                            AMonth = Clock.getMonth(Century);
-                            ADate = Clock.getDate();
-                            Serial.print("AYear =  ");
-                            Serial.println(AYear);
-                            Serial.print("AMonth =  ");
-                            Serial.println(AMonth);
-                            Serial.print("ADate =  ");
-                            Serial.println(ADate);
-                            if (AYear < DYear || (AYear == DYear) && (AMonth < DMonth || (AMonth = DMonth && ADate <= DDate) ) )
-                              
-                           // if(pass == 1 || spaceTime < N)
+                            if(pass == 1 || spaceTime < N)
                             {
                              //Keyboard.press(KEY_LEFT_CTRL);
                             // Keyboard.press('s');		//向电脑发送向停止的指令
@@ -215,8 +174,7 @@ void loop()
                         if(anjian == 0)
                         {
                             //6#jian 
-                         
-                            //if(pass == 1 || spaceTime < N)
+                            if(pass == 1 || spaceTime < N)
                             {
                              //Keyboard.press(KEY_LEFT_CTRL);
                             // Keyboard.press('P');		//向电脑发送向停止的指令
@@ -248,9 +206,9 @@ void loop()
                         {
                             //8#jian 
                             
-                            Serial.print("使用次数：");
+                            Serial.print("ShiYongCiShu");
                             Serial.print(spaceTime);
-                            Serial.println("次");
+                            Serial.println("Ci");
                             Serial.println("//8#jian ");
                         }
                         break;

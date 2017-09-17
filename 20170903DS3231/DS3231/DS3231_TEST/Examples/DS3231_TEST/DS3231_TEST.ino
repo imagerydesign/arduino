@@ -25,13 +25,13 @@ byte year, month, date, DoW, hour, minute, second;
 void setup() {
 	// Start the I2C interface
 	Wire.begin();
-        Clock.setSecond(50);//Set the second 
-        Clock.setMinute(59);//Set the minute 
-        Clock.setHour(11);  //Set the hour 
-        Clock.setDoW(5);    //Set the day of the week
-        Clock.setDate(31);  //Set the date of the month
-        Clock.setMonth(5);  //Set the month of the year
-        Clock.setYear(13);  //Set the year (Last two digits of the year)
+        Clock.setSecond(0);//Set the second 
+        Clock.setMinute(0);//Set the minute 
+        Clock.setHour(21);  //Set the hour 
+       // Clock.setDoW(5);    //Set the day of the week
+        Clock.setDate(11);  //Set the date of the month
+        Clock.setMonth(9);  //Set the month of the year
+        Clock.setYear(17);  //Set the year (Last two digits of the year)
 	// Start the serial interface
 	Serial.begin(115200);
 }
