@@ -1,12 +1,10 @@
-//说明：一共要改两个方面的东西，一个是序列个数，另一个是灯光序列，先改后面一个，改完数一下几条再改第一个。
-//举例说明{100.0,200.0,1.80}这条指令的意思就是在第100毫秒到200毫秒之间，第一通道由前一个值渐变到亮度80。一秒有1000毫秒。
-//写灯光变化指令的时候，先用控制台检测一下，几号通道是负责什么的，大概需要多大的亮度。
+
 #include <DmxSimple.h>
 #include <EEPROM.h>
 #include <Keyboard.h>
 
-#define SEQNUM  6           //序列个数
-#define CHANNELNUM  32
+#define SEQNUM  7           //序列个数
+#define CHANNELNUM  32      //通道个数
 
 struct LIGHTSEQ
 {
@@ -20,15 +18,15 @@ unsigned short LightStatus[CHANNELNUM + 1] = {0};
 
 struct LIGHTSEQ lightSeq[SEQNUM] = //起始时间 终止时间 通道号 变化值
 {
-  {100.0, 200.0, 1, 0},
-  {300.0, 400.0, 2, 255},
-  {500.0, 600.0, 3, 255},
-  {600.0, 700.0, 4, 255},
-  {700.0, 800.0, 5, 255},
-  {900.0, 50000.0, 1, 0},
-  {50001.0, 70000.0, 1, 40},
-  {70001.0, 90000.0, 1, 40},
+  {100.0, 100.0, 1, 0},
+  {200.0, 100.0, 2, 255},
+  {300.0, 300.0, 3, 255},
+  {400.0, 400.0, 4, 255},
+  {500.0, 600.0, 5, 255},
+  {700.0, 8000.0, 1, 40},
+  {8000.0, 114000.0, 1, 40},
 };
+
 void setup()
 {
   Serial1.begin(9600);
@@ -37,6 +35,7 @@ void setup()
     DmxSimple.write (i, 0);
   }
 }
+
 int nSeqNum = 0;
 int anjian = 0;
 bool bStop = true;
@@ -114,7 +113,7 @@ void loop()
       {
         delay(5);
         anjian = Serial1.read();
-        if (anjian == 178 ) //串口第3个数字
+        if (anjian == 186 ) //串口第3个数字
         {
           delay(5);
           anjian = Serial1.read();

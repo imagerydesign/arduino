@@ -5,7 +5,7 @@
 #include <EEPROM.h>
 #include <Keyboard.h>
 
-#define SEQNUM  6           //序列个数
+#define SEQNUM  8           //序列个数
 #define CHANNELNUM  32
 
 struct LIGHTSEQ
